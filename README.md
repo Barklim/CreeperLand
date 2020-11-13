@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # CreeperLand 
 
 ## Table of Contents
@@ -32,3 +33,6 @@ npm install
 
 Team:
 - [Github](https://barklim.github.io/) - Frontend developer Github page
+=======
+# ExcelApp
+>>>>>>> 6d9345ee504af8239352496b0ca17ae66e9aae0d
