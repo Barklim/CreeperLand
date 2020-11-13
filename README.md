@@ -1,14 +1,34 @@
-# Typescript
-Testing with typescript and patterns.
+# CreeperLand 
 
-# Try using
+## Table of Contents
 
-zurb foundation
+- [Developer info](#developer-info)
+- [Bootstraped](#bootstraped)
+- [Meta](#meta)	
 
-styleguidist
+[CreepLand (Website)](https://creeper.land/) - for mc donats.
 
-Gh-pages
+[Server (github repository)](https://github.com/Barklim/CreeperLandServer)
 
-https://www.youtube.com/watch?v=doVgFdc6Op4&list=PLcvhF2Wqh7DM3z1XqMw0kPuxpbyMo3HvN&index=3&ab_channel=IT-KAMASUTRA
+1.[course](https://coursehunter.net/course/next-js-s-react-i-node-krasivoe-prilozhenie-portfolio)
 
-webjl
+2.[course](https://coursehunter.net/course/next-js-i-apollo-prilozhenie-portfolio-s-react-graphql-node)
+
+## Developer info
+
+### Project setup
+```
+npm install
+```
+
+## Bootstraped
+
+* [react-admin](https://www.youtube.com/watch?v=HRmdj-HpJyE&ab_channel=TraversyMedia)
+* [react-hook-form](https://react-hook-form.com/)
+* react-animaiton
+* typescript
+
+## Meta
+
+Team:
+- [Github](https://barklim.github.io/) - Frontend developer Github page
