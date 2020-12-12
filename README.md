@@ -10,10 +10,6 @@
 
 [Server (github repository)](https://github.com/Barklim/CreeperLandServer)
 
-1.[course](https://coursehunter.net/course/next-js-s-react-i-node-krasivoe-prilozhenie-portfolio)
-
-2.[course](https://coursehunter.net/course/next-js-i-apollo-prilozhenie-portfolio-s-react-graphql-node)
-
 ## Developer info
 
 ### Project setup
