@@ -8,13 +8,30 @@
 
 [CreepLand (Website)](https://creeper.land/) - for mc donats.
 
-[Server (github repository)](https://github.com/Barklim/CreeperLandServer)
-
 ## Developer info
 
 ### Project setup
+
+In server delete dist folder && del if migrations if have
+
+create migration
+
 ```
-npm install
+yarn create:migration 
+```
+
+If you have problem with import remove seccond addsql in migration (i will add link on this issue if find)
+
+Lets compile ts (it create dist folder)
+
+```
+yarn watch 
+```
+
+Run it (start the psql and redis before)
+
+```
+yarn dev 
 ```
 
 ## Bootstraped
@@ -24,6 +41,10 @@ npm install
 * [react-hook-form](https://react-hook-form.com/)
 * react-animaiton
 * typescript
+* express
+* typeorm
+* pgsql
+* unitpay.money
 
 ## Meta
 
