@@ -12,7 +12,7 @@
 
 ### Project setup
 
-In server delete dist folder && del if migrations if have
+In server delete dist folder and del migrations if have
 
 create migration
 
@@ -20,7 +20,14 @@ create migration
 yarn create:migration 
 ```
 
-If you have problem with import remove seccond addsql in migration (i will add link on this issue if find)
+If you have problem with migration remove second addsql in migration file (i will add link on this issue if find)
+
+its can look like
+
+```
+this.addSql('create table "post" ("id" serial primary key, "created_at" timestamptz(0) not null, "updated_at" timestamptz(0) not null, "title" text not null);');
+this.addSql('create table "user" ("id" serial primary key, "created_at" timestamptz(0) not null, "updated_at" timestamptz(0) not null, "username" text not null, "password" text not null);');
+```
 
 Lets compile ts (it create dist folder)
 
