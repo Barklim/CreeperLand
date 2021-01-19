@@ -1,5 +1,8 @@
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
+import { NavBar } from '../NavBar';
+import { Masthead } from './Masthead';
+import { Features } from './Features';
 import { PageWrapper } from 'app/components/PageWrapper';
 
 export function HomePage() {
@@ -7,10 +10,16 @@ export function HomePage() {
     <>
       <Helmet>
         <title>Home Page</title>
-        <meta name="description" content="A Boilerplate application homepage" />
+        <meta
+          name="description"
+          content="A React Boilerplate application homepage"
+        />
       </Helmet>
+      {/* <NavBar /> */}
       <PageWrapper>
-        <span>HomePage container</span>
+        {/* <Masthead />
+        <Features /> */}
+        <div>HomeContainer</div>
       </PageWrapper>
     </>
   );

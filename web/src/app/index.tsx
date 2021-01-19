@@ -10,11 +10,11 @@ import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 
-import { GlobalStyle } from 'styles/global-styles';
+import { GlobalStyle } from '../styles/global-styles';
 
 import { HomePage } from './containers/HomePage/Loadable';
-import { DonatPage } from './containers/DonatPage';
-import { NotFoundPage } from './components/NotFoundPage/Loadable';
+import { DonatPage } from './containers/DonatPage/';
+import { NotFoundPage } from './containers/NotFoundPage/Loadable';
 import { useTranslation } from 'react-i18next';
 
 export function App() {
@@ -30,8 +30,8 @@ export function App() {
       </Helmet>
 
       <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route exact path="/donat" component={DonatPage} />
+        <Route exact path={process.env.PUBLIC_URL + '/'} component={HomePage} />
+        <Route exact path={process.env.PUBLIC_URL + '/donat'} component={DonatPage} />
         <Route component={NotFoundPage} />
       </Switch>
       <GlobalStyle />

@@ -1,37 +1,50 @@
 /**
- *
- * DonatPage
- *
- */
+*
+* DonatPage
+*
+*/
 
-import React, { memo } from 'react';
+import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components/macro';
 
-import { useInjectReducer } from 'utils/redux-injectors';
+import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { reducer, sliceKey } from './slice';
 import { selectDonatPage } from './selectors';
+import { donatPageSaga } from './saga';
+import { messages } from './messages';
 
 interface Props {}
 
-export const DonatPage = memo((props: Props) => {
-  useInjectReducer({ key: sliceKey, reducer: reducer });
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const donatPage = useSelector(selectDonatPage);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const dispatch = useDispatch();
+export function DonatPage(props: Props) {
+useInjectReducer({ key: sliceKey, reducer: reducer });
+  useInjectSaga({ key: sliceKey, saga: donatPageSaga });
 
-  return (
-    <>
-      <Helmet>
-        <title>DonatPage</title>
-        <meta name="description" content="Description of DonatPage" />
-      </Helmet>
-      <Div>DonatPage</Div>
-    </>
-  );
-});
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const donatPage = useSelector(selectDonatPage);
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const dispatch = useDispatch();
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const { t, i18n } = useTranslation();
+
+return (
+<>
+  <Helmet>
+    <title>DonatPage</title>
+    <meta name="description" content="Description of DonatPage" />
+  </Helmet>
+  <Div>
+      {t('')}
+      {/*  {t(...messages.someThing)}  */}
+      <div>Donat page</div>
+    </Div>
+</>
+);
+
+};
 
 const Div = styled.div``;
