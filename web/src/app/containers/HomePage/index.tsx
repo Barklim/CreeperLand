@@ -4,6 +4,7 @@ import { NavBar } from '../NavBar';
 import { Masthead } from './Masthead';
 import { Features } from './Features';
 import { PageWrapper } from 'app/components/PageWrapper';
+import Button from 'react-bootstrap/Button';
 
 export function HomePage() {
   return (
@@ -20,6 +21,7 @@ export function HomePage() {
         {/* <Masthead />
         <Features /> */}
         <div>HomeContainer</div>
+        <Button variant="outline-success">Success</Button>{' '}
       </PageWrapper>
     </>
   );
