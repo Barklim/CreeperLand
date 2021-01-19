@@ -5,6 +5,7 @@ import { Masthead } from './Masthead';
 import { Features } from './Features';
 import { PageWrapper } from 'app/components/PageWrapper';
 import Button from 'react-bootstrap/Button';
+import { RegisterModal } from 'app/components/RegisterModal'
 
 export function HomePage() {
   return (
@@ -21,6 +22,7 @@ export function HomePage() {
         {/* <Masthead />
         <Features /> */}
         <div>HomeContainer</div>
+        <RegisterModal></RegisterModal>
         <Button variant="outline-success">Success</Button>{' '}
       </PageWrapper>
     </>
