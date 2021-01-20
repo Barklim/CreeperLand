@@ -1,11 +1,9 @@
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { NavBar } from '../NavBar';
-import { Masthead } from './Masthead';
-import { Features } from './Features';
-import { PageWrapper } from 'app/components/PageWrapper';
-import Button from 'react-bootstrap/Button';
-import { RegisterModal } from 'app/components/RegisterModal'
+// import { NavBar } from '../NavBar';
+// import { Masthead } from './Masthead';
+// import { Features } from './Features';
+import { RegisterModal } from 'app/components/RegisterModal';
 
 export function HomePage() {
   return (
@@ -18,13 +16,11 @@ export function HomePage() {
         />
       </Helmet>
       {/* <NavBar /> */}
-      <PageWrapper>
+      <div>
         {/* <Masthead />
         <Features /> */}
-        <div>HomeContainer</div>
         <RegisterModal></RegisterModal>
-        <Button variant="outline-success">Success</Button>{' '}
-      </PageWrapper>
+      </div>
     </>
   );
 }

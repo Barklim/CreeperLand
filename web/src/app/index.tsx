@@ -31,7 +31,11 @@ export function App() {
 
       <Switch>
         <Route exact path={process.env.PUBLIC_URL + '/'} component={HomePage} />
-        <Route exact path={process.env.PUBLIC_URL + '/donat'} component={DonatPage} />
+        <Route
+          exact
+          path={process.env.PUBLIC_URL + '/donat'}
+          component={DonatPage}
+        />
         <Route component={NotFoundPage} />
       </Switch>
       <GlobalStyle />

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import styled from 'styled-components/macro';
 import { useTranslation } from 'react-i18next';
 // import { messages } from './messages';
@@ -7,8 +8,10 @@ import * as yup from 'yup';
 import Form from 'react-bootstrap/Form';
 // import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import InputGroup from 'react-bootstrap/InputGroup';
+import Row from 'react-bootstrap/Row';
+// import InputGroup from 'react-bootstrap/InputGroup';
 import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 
 interface Props {}
 
@@ -18,13 +21,15 @@ export function RegisterModal(props: Props) {
 
   const schema = yup.object({
     firstName: yup.string().required(),
-    lastName: yup.string().required(),
-    username: yup.string().required(),
-    city: yup.string().required(),
-    state: yup.string().required(),
-    zip: yup.string().required(),
-    terms: yup.bool().required(),
+    email: yup.string().required(),
+    password: yup.string().required(),
+    repPas: yup.string().required(),
   });
+
+  const [show, setShow] = useState(true);
+
+  const handleClose = () => setShow(false);
+  // const handleShow = () => setShow(true);
 
   return (
     <Div>
@@ -34,13 +39,10 @@ export function RegisterModal(props: Props) {
         validationSchema={schema}
         onSubmit={console.log}
         initialValues={{
-          firstName: 'Mark',
-          lastName: 'Otto',
-          username: 'username',
-          city: 'city',
-          state: 'state',
-          zip: 'zip',
-          terms: 'terms',
+          firstName: '',
+          email: '',
+          password: '',
+          repPas: '',
         }}
       >
         {({
@@ -53,109 +55,97 @@ export function RegisterModal(props: Props) {
           errors,
         }) => (
           <Form noValidate onSubmit={handleSubmit}>
-            <Form.Row>
-              <Form.Group as={Col} md="4" controlId="validationFormik01">
-                <Form.Label>First name</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="firstName"
-                  value={values.firstName}
-                  onChange={handleChange}
-                  isValid={touched.firstName && !errors.firstName}
-                />
-                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-              </Form.Group>
-              <Form.Group as={Col} md="4" controlId="validationFormik02">
-                <Form.Label>Last name</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="lastName"
-                  value={values.lastName}
-                  onChange={handleChange}
-                  isValid={touched.lastName && !errors.lastName}
-                />
-
-                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-              </Form.Group>
-              <Form.Group as={Col} md="4" controlId="validationFormikUsername">
-                <Form.Label>Username</Form.Label>
-                <InputGroup>
-                  <InputGroup.Prepend>
-                    <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
-                  </InputGroup.Prepend>
+            <Modal show={show} onHide={handleClose} animation={true} centered>
+              <Row className="justify-content-md-center">
+                <Col md={{ span: 3, offset: 4 }}>
+                  <HeaderLabel>Регистрация</HeaderLabel>
+                </Col>
+                <Col md={{ span: 1, offset: 3 }}>
+                  <Button variant="link" onClick={handleClose}>
+                    X
+                  </Button>
+                </Col>
+              </Row>
+              <Form.Row>
+                <Form.Group
+                  as={Col}
+                  md={{ span: 8, offset: 2 }}
+                  controlId="validationFormik01"
+                >
+                  <Form.Label>Логин:</Form.Label>
                   <Form.Control
                     type="text"
-                    placeholder="Username"
-                    aria-describedby="inputGroupPrepend"
-                    name="username"
-                    value={values.username}
+                    name="firstName"
+                    value={values.firstName}
                     onChange={handleChange}
-                    isInvalid={!!errors.username}
+                    placeholder="Ваш ник"
+                    isValid={touched.firstName && !errors.firstName}
                   />
-                  <Form.Control.Feedback type="invalid">
-                    {errors.username}
-                  </Form.Control.Feedback>
-                </InputGroup>
+                  <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                </Form.Group>
+              </Form.Row>
+              <Form.Row>
+                <Form.Group
+                  as={Col}
+                  md={{ span: 8, offset: 2 }}
+                  controlId="validationFormik02"
+                >
+                  <Form.Label>E-mail:</Form.Label>
+                  <Form.Control
+                    type="email"
+                    name="email"
+                    value={values.email}
+                    onChange={handleChange}
+                    placeholder="Промокод"
+                    isValid={touched.email && !errors.email}
+                  />
+                  <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                </Form.Group>
+              </Form.Row>
+              <Form.Row>
+                <Form.Group
+                  as={Col}
+                  md={{ span: 8, offset: 2 }}
+                  controlId="validationFormik03"
+                >
+                  <Form.Label>Пароль:</Form.Label>
+                  <Form.Control
+                    type="password"
+                    name="password"
+                    value={values.password}
+                    onChange={handleChange}
+                    placeholder="Пароль"
+                    isValid={touched.password && !errors.password}
+                  />
+                  <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                </Form.Group>
+              </Form.Row>
+              <Form.Row>
+                <Form.Group
+                  as={Col}
+                  md={{ span: 8, offset: 2 }}
+                  controlId="validationFormik04"
+                >
+                  <Form.Label>Повторите пароль:</Form.Label>
+                  <Form.Control
+                    type="password"
+                    name="repPas"
+                    value={values.repPas}
+                    onChange={handleChange}
+                    placeholder="Повторите пароль"
+                    isValid={touched.repPas && !errors.repPas}
+                  />
+                  <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                </Form.Group>
+              </Form.Row>
+              <Form.Group>
+                <Row className="justify-content-md-center">
+                  <Button type="submit" variant="success">
+                    Зарегистрироваться
+                  </Button>
+                </Row>
               </Form.Group>
-            </Form.Row>
-            <Form.Row>
-              <Form.Group as={Col} md="6" controlId="validationFormik03">
-                <Form.Label>City</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="City"
-                  name="city"
-                  value={values.city}
-                  onChange={handleChange}
-                  isInvalid={!!errors.city}
-                />
-
-                <Form.Control.Feedback type="invalid">
-                  {errors.city}
-                </Form.Control.Feedback>
-              </Form.Group>
-              <Form.Group as={Col} md="3" controlId="validationFormik04">
-                <Form.Label>State</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="State"
-                  name="state"
-                  value={values.state}
-                  onChange={handleChange}
-                  isInvalid={!!errors.state}
-                />
-                <Form.Control.Feedback type="invalid">
-                  {errors.state}
-                </Form.Control.Feedback>
-              </Form.Group>
-              <Form.Group as={Col} md="3" controlId="validationFormik05">
-                <Form.Label>Zip</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Zip"
-                  name="zip"
-                  value={values.zip}
-                  onChange={handleChange}
-                  isInvalid={!!errors.zip}
-                />
-
-                <Form.Control.Feedback type="invalid">
-                  {errors.zip}
-                </Form.Control.Feedback>
-              </Form.Group>
-            </Form.Row>
-            <Form.Group>
-              <Form.Check
-                required
-                name="terms"
-                label="Agree to terms and conditions"
-                onChange={handleChange}
-                isInvalid={!!errors.terms}
-                feedback={errors.terms}
-                id="validationFormik0"
-              />
-            </Form.Group>
-            <Button type="submit">Submit form</Button>
+            </Modal>
           </Form>
         )}
       </Formik>
@@ -163,4 +153,18 @@ export function RegisterModal(props: Props) {
   );
 }
 
-const Div = styled.div``;
+const Div = styled.div`
+  /* padding-top: 120px; */
+  /* padding-top: calc(12vh - 10px); */
+
+  form {
+    width: 552px;
+    background-color: blue;
+    margin-left: auto;
+    margin-right: auto;
+  }
+`;
+
+const HeaderLabel = styled.div`
+  padding-top: 20px;
+`;
