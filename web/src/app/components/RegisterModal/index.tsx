@@ -13,17 +13,32 @@ import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 // import { InputField } from '../InputField';
+import { useMutation } from 'urql';
+
+const REGISTER_MUT = `
+mutation Register($username: String!, $password:String!) {
+  register(options: { username: $username, password: $password }) {
+    errors {
+      field
+      message
+    }
+    user {
+      id
+      username
+    }
+  }
+}
+`;
 
 interface Props {}
 
 export function RegisterModal(props: Props) {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { t } = useTranslation();
 
   const btnText = t(messages.btnText);
 
   const schema = yup.object({
-    login: yup.string().required(),
+    username: yup.string().required(),
     email: yup.string().required(),
     password: yup.string().required(),
     repPas: yup.string().required(),
@@ -35,6 +50,8 @@ export function RegisterModal(props: Props) {
   // const handleShow = () => setShow(true);
 
   const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+  const [, register] = useMutation(REGISTER_MUT);
 
   return (
     <Div>
@@ -57,9 +74,14 @@ export function RegisterModal(props: Props) {
           onSubmit={async values => {
             await sleep(700);
             console.log(values);
+            const response = await register({
+              username: values.username,
+              password: values.password,
+            });
+            console.log(response);
           }}
           initialValues={{
-            login: '',
+            username: '',
             email: '',
             password: '',
             repPas: '',
@@ -85,16 +107,16 @@ export function RegisterModal(props: Props) {
                   <Form.Label>Логин:</Form.Label>
                   <Form.Control
                     type="text"
-                    name="login"
-                    value={values.login}
+                    name="username"
+                    value={values.username}
                     onChange={handleChange}
                     placeholder="Ваш ник"
-                    isValid={touched.login && !errors.login}
-                    isInvalid={!!errors.login}
+                    isValid={touched.username && !errors.username}
+                    isInvalid={!!errors.username}
                   />
                   <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                   <Form.Control.Feedback type="invalid" tooltip>
-                    {errors.login}
+                    {errors.username}
                   </Form.Control.Feedback>
                 </Form.Group>
               </Form.Row>

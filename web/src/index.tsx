@@ -25,6 +25,9 @@ import { configureAppStore } from 'store/configureStore';
 
 import { ThemeProvider } from 'styles/theme/ThemeProvider';
 
+import { Provider as ProviderUrql } from 'urql';
+import { createClient } from 'urql';
+
 // Initialize languages
 import './locales/i18n';
 
@@ -37,18 +40,31 @@ openSansObserver.load().then(() => {
   // document.body.classList.add('fontLoaded');
 });
 
+// const client = createClient({
+//   url: 'http://localhost:4000/graphql',
+//   fetchOptions: {
+//     mode: "navigate", // no-cors, cors, *same-origin
+//     credentials: 'include',
+//   },
+// });
+const client = createClient({
+  url: 'http://localhost:4000/graphql',
+});
+
 const store = configureAppStore();
 const MOUNT_NODE = document.getElementById('root') as HTMLElement;
 
 ReactDOM.render(
   <Provider store={store}>
-    <ThemeProvider>
-      <HelmetProvider>
-        <React.StrictMode>
-          <App />
-        </React.StrictMode>
-      </HelmetProvider>
-    </ThemeProvider>
+    <ProviderUrql value={client}>
+      <ThemeProvider>
+        <HelmetProvider>
+          <React.StrictMode>
+            <App />
+          </React.StrictMode>
+        </HelmetProvider>
+      </ThemeProvider>
+    </ProviderUrql>
   </Provider>,
   MOUNT_NODE,
 );
