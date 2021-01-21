@@ -13,4 +13,8 @@ const donatPageSlice = createSlice({
   },
 });
 
-export const { actions: donatPageActions, reducer, name: sliceKey } = donatPageSlice;
+export const {
+  actions: donatPageActions,
+  reducer,
+  name: sliceKey,
+} = donatPageSlice;

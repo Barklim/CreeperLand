@@ -12,6 +12,7 @@ import Row from 'react-bootstrap/Row';
 // import InputGroup from 'react-bootstrap/InputGroup';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+// import { InputField } from '../InputField';
 
 interface Props {}
 
@@ -20,7 +21,7 @@ export function RegisterModal(props: Props) {
   const { t, i18n } = useTranslation();
 
   const schema = yup.object({
-    firstName: yup.string().required(),
+    login: yup.string().required(),
     email: yup.string().required(),
     password: yup.string().required(),
     repPas: yup.string().required(),
@@ -31,41 +32,48 @@ export function RegisterModal(props: Props) {
   const handleClose = () => setShow(false);
   // const handleShow = () => setShow(true);
 
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+
   return (
     <Div>
       {t('')}
       {/*  {t(...messages.someThing)}  */}
-      <Formik
-        validationSchema={schema}
-        onSubmit={console.log}
-        initialValues={{
-          firstName: '',
-          email: '',
-          password: '',
-          repPas: '',
-        }}
-      >
-        {({
-          handleSubmit,
-          handleChange,
-          handleBlur,
-          values,
-          touched,
-          isValid,
-          errors,
-        }) => (
-          <Form noValidate onSubmit={handleSubmit}>
-            <Modal show={show} onHide={handleClose} animation={true} centered>
-              <Row className="justify-content-md-center">
-                <Col md={{ span: 3, offset: 4 }}>
-                  <HeaderLabel>Регистрация</HeaderLabel>
-                </Col>
-                <Col md={{ span: 1, offset: 3 }}>
-                  <Button variant="link" onClick={handleClose}>
-                    X
-                  </Button>
-                </Col>
-              </Row>
+      <Modal show={show} onHide={handleClose} animation={true} centered>
+        <Row className="justify-content-md-center">
+          <Col md={{ span: 3, offset: 4 }}>
+            <HeaderLabel>Регистрация</HeaderLabel>
+          </Col>
+          <Col md={{ span: 1, offset: 3 }}>
+            <Button variant="link" onClick={handleClose}>
+              X
+            </Button>
+          </Col>
+        </Row>
+        <Formik
+          validationSchema={schema}
+          // onSubmit={console.log}
+          onSubmit={async values => {
+            await sleep(700);
+            console.log(values);
+          }}
+          initialValues={{
+            login: '',
+            email: '',
+            password: '',
+            repPas: '',
+          }}
+        >
+          {({
+            handleSubmit,
+            handleChange,
+            handleBlur,
+            values,
+            touched,
+            isValid,
+            errors,
+            isSubmitting,
+          }) => (
+            <Form noValidate onSubmit={handleSubmit}>
               <Form.Row>
                 <Form.Group
                   as={Col}
@@ -75,13 +83,17 @@ export function RegisterModal(props: Props) {
                   <Form.Label>Логин:</Form.Label>
                   <Form.Control
                     type="text"
-                    name="firstName"
-                    value={values.firstName}
+                    name="login"
+                    value={values.login}
                     onChange={handleChange}
                     placeholder="Ваш ник"
-                    isValid={touched.firstName && !errors.firstName}
+                    isValid={touched.login && !errors.login}
+                    isInvalid={!!errors.login}
                   />
                   <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                  <Form.Control.Feedback type="invalid" tooltip>
+                    {errors.login}
+                  </Form.Control.Feedback>
                 </Form.Group>
               </Form.Row>
               <Form.Row>
@@ -140,15 +152,19 @@ export function RegisterModal(props: Props) {
               </Form.Row>
               <Form.Group>
                 <Row className="justify-content-md-center">
-                  <Button type="submit" variant="success">
-                    Зарегистрироваться
+                  <Button
+                    type="submit"
+                    variant="success"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? 'Загрузка…' : 'Зарегистрироваться'}
                   </Button>
                 </Row>
               </Form.Group>
-            </Modal>
-          </Form>
-        )}
-      </Formik>
+            </Form>
+          )}
+        </Formik>
+      </Modal>
     </Div>
   );
 }
