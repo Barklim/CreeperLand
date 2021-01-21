@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import styled from 'styled-components/macro';
 import { useTranslation } from 'react-i18next';
-// import { messages } from './messages';
+import { messages } from './messages';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import Form from 'react-bootstrap/Form';
@@ -18,7 +18,9 @@ interface Props {}
 
 export function RegisterModal(props: Props) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
+
+  const btnText = t(messages.btnText);
 
   const schema = yup.object({
     login: yup.string().required(),
@@ -157,7 +159,7 @@ export function RegisterModal(props: Props) {
                     variant="success"
                     disabled={isSubmitting}
                   >
-                    {isSubmitting ? 'Загрузка…' : 'Зарегистрироваться'}
+                    {isSubmitting ? 'Загрузка…' : btnText}
                   </Button>
                 </Row>
               </Form.Group>

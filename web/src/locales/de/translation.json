@@ -15,5 +15,8 @@
   "scaffoldingFeature": {
     "title": "Schnelles Scaffolding",
     "description": "Automatisieren Sie die Kreation von Komponenten, Containern, Routen, Selektoren und Sagas – und ihre Tests – direkt von dem Terminal!"
+  },
+  "regModal": {
+    "btnText": "Anmeldung"
   }
 }
