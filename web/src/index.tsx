@@ -40,15 +40,12 @@ openSansObserver.load().then(() => {
   // document.body.classList.add('fontLoaded');
 });
 
-// const client = createClient({
-//   url: 'http://localhost:4000/graphql',
-//   fetchOptions: {
-//     mode: "navigate", // no-cors, cors, *same-origin
-//     credentials: 'include',
-//   },
-// });
 const client = createClient({
   url: 'http://localhost:4000/graphql',
+  fetchOptions: {
+    // mode: "no-cors", // no-cors, cors, *same-origin, navigate
+    // credentials: 'include',
+  },
 });
 
 const store = configureAppStore();

@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
 import styled from 'styled-components/macro';
-import { useTranslation } from 'react-i18next';
-import { messages } from './messages';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import Form from 'react-bootstrap/Form';
@@ -10,18 +8,13 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-// import { InputField } from '../InputField';
-// import { useMutation } from 'urql';
-import { useRegisterMutation } from 'generated/graphql';
+import { useLoginMutation } from 'generated/graphql';
 import { toErrorMap } from 'utils/toErrorMap';
 
 interface Props {}
 
-export function RegisterModal(props: Props) {
-  const { t } = useTranslation();
-  const btnText = t(messages.btnText);
-
-  const [, register] = useRegisterMutation();
+export function LoginModal(props: Props) {
+  const [, login] = useLoginMutation();
 
   const schema = yup.object({
     username: yup.string().required('Login is a required field'),
@@ -29,12 +22,6 @@ export function RegisterModal(props: Props) {
     password: yup.string(),
     repPas: yup.string(),
   });
-
-  // schema.validate({ username: 'jimmy', email: '1', password: '1', repPas: '1' }).catch(function (err) {
-  //   /* eslint-disable */
-  //   err.name; // => 'ValidationError'
-  //   err.errors; // => ['Deve ser maior que 18']
-  // });
 
   const [show, setShow] = useState(true);
 
@@ -45,12 +32,10 @@ export function RegisterModal(props: Props) {
 
   return (
     <Div>
-      {t('')}
-      {/*  {t(...messages.someThing)}  */}
       <Modal show={show} onHide={handleClose} animation={true} centered>
         <Row className="justify-content-md-center">
           <Col md={{ span: 3, offset: 4 }}>
-            <HeaderLabel>Регистрация</HeaderLabel>
+            <HeaderLabel>Авторизация</HeaderLabel>
           </Col>
           <Col md={{ span: 1, offset: 3 }}>
             <Button variant="link" onClick={handleClose}>
@@ -64,16 +49,23 @@ export function RegisterModal(props: Props) {
           onSubmit={async (values, { setErrors }) => {
             await sleep(700);
             console.log(values);
-            const response = await register({
-              username: values.username,
-              password: values.password,
+            const response = await login({
+              // username: values.username,
+              // password: values.password,
+
+              // options: values,
+
+              options: {
+                username: values.username,
+                password: values.password,
+              },
             });
             console.log('TEST');
-            console.log(response?.data?.register?.errors);
+            console.log(response?.data?.login?.errors);
 
-            if (response.data?.register.errors) {
-              setErrors(toErrorMap(response.data.register.errors));
-            } else if (response.data?.register.user) {
+            if (response.data?.login.errors) {
+              setErrors(toErrorMap(response.data.login.errors));
+            } else if (response.data?.login.user) {
               // router.push("/");
             }
           }}
@@ -182,7 +174,7 @@ export function RegisterModal(props: Props) {
                     variant="success"
                     disabled={isSubmitting}
                   >
-                    {isSubmitting ? 'Загрузка…' : btnText}
+                    {isSubmitting ? 'Загрузка…' : 'Войти'}
                   </Button>
                 </Row>
               </Form.Group>
