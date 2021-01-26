@@ -42,9 +42,12 @@ openSansObserver.load().then(() => {
 
 const client = createClient({
   url: 'http://localhost:4000/graphql',
+  // fetchOptions: {
+  //   // mode: "no-cors", // no-cors, cors, *same-origin, navigate
+  //   // credentials: 'include',
+  // },
   fetchOptions: {
-    // mode: "no-cors", // no-cors, cors, *same-origin, navigate
-    // credentials: 'include',
+    credentials: 'include',
   },
 });
 

@@ -15,6 +15,7 @@ import { reducer, sliceKey } from './slice';
 import { selectDonatPage } from './selectors';
 import { donatPageSaga } from './saga';
 // import { messages } from './messages';
+import { NavBar } from '../NavBar';
 
 interface Props {}
 
@@ -33,11 +34,12 @@ export function DonatPage(props: Props) {
   return (
     <>
       <Helmet>
-        <title>DonatPage</title>
+        <title>Купить кейс</title>
         <meta name="description" content="Description of DonatPage" />
       </Helmet>
       <Div>
         {t('')}
+        <NavBar />
         {/*  {t(...messages.someThing)}  */}
         <div>Donat page</div>
       </Div>

@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet-async';
 // import { Masthead } from './Masthead';
 // import { Features } from './Features';
 // import { RegisterModal } from 'app/components/RegisterModal';
-import { LoginModal } from 'app/components/LoginModal';
+// import { LoginModal } from 'app/components/LoginModal';
 
 export function HomePage() {
   return (
@@ -20,7 +20,7 @@ export function HomePage() {
       <div>
         {/* <Masthead />
         <Features /> */}
-        <LoginModal></LoginModal>
+        {/* <LoginModal></LoginModal> */}
       </div>
     </>
   );

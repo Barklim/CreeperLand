@@ -4,28 +4,26 @@ import styled from 'styled-components/macro';
 export function Logo() {
   return (
     <Wrapper>
-      <Title>CREEPER LAND</Title>
-      <Description>mc.creeperland.ru</Description>
+      <Title>React Boilerplate</Title>
+      <Description>Create React App Template</Description>
     </Wrapper>
   );
 }
 
 const Wrapper = styled.div`
   display: flex;
-  flex-direction: column;
+  align-items: center;
 `;
 
 const Title = styled.div`
-  /* font-size: 1.25rem; */
-  font-size: 16px;
+  font-size: 1.25rem;
   color: ${p => p.theme.text};
-  font-weight: 500;
+  font-weight: bold;
   margin-right: 1rem;
 `;
 
 const Description = styled.div`
-  /* font-size: 0.875rem; */
-  font-size: 14px;
+  font-size: 0.875rem;
   color: ${p => p.theme.textSecondary};
   font-weight: normal;
 `;
