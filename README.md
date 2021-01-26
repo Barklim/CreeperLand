@@ -1,5 +1,7 @@
 # CreeperLand 
 
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/Barklim/CreeperLand.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/Barklim/CreeperLand/alerts/)
+
 ## Table of Contents
 
 - [Developer info](#developer-info)
