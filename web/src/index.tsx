@@ -26,7 +26,14 @@ import { configureAppStore } from 'store/configureStore';
 import { ThemeProvider } from 'styles/theme/ThemeProvider';
 
 import { Provider as ProviderUrql } from 'urql';
-import { createClient } from 'urql';
+import { createClient, dedupExchange, fetchExchange } from 'urql';
+import { cacheExchange, Cache, QueryInput } from '@urql/exchange-graphcache';
+import {
+  MeDocument,
+  LoginMutation,
+  MeQuery,
+  RegisterMutation,
+} from 'generated/graphql';
 
 // Initialize languages
 import './locales/i18n';
@@ -40,15 +47,62 @@ openSansObserver.load().then(() => {
   // document.body.classList.add('fontLoaded');
 });
 
+function betterUpdateQuery<Result, Query>(
+  cache: Cache,
+  qi: QueryInput,
+  result: any,
+  fn: (r: Result, q: Query) => Query,
+) {
+  return cache.updateQuery(qi, data => fn(result, data as any) as any);
+}
+
 const client = createClient({
   url: 'http://localhost:4000/graphql',
-  // fetchOptions: {
-  //   // mode: "no-cors", // no-cors, cors, *same-origin, navigate
-  //   // credentials: 'include',
-  // },
   fetchOptions: {
     credentials: 'include',
   },
+  exchanges: [
+    dedupExchange,
+    cacheExchange({
+      updates: {
+        Mutation: {
+          login: (_result, args, cache, info) => {
+            betterUpdateQuery<LoginMutation, MeQuery>(
+              cache,
+              { query: MeDocument },
+              _result,
+              (result, query) => {
+                if (result.login.errors) {
+                  return query;
+                } else {
+                  return {
+                    me: result.login.user,
+                  };
+                }
+              },
+            );
+          },
+          register: (_result, args, cache, info) => {
+            betterUpdateQuery<RegisterMutation, MeQuery>(
+              cache,
+              { query: MeDocument },
+              _result,
+              (result, query) => {
+                if (result.register.errors) {
+                  return query;
+                } else {
+                  return {
+                    me: result.register.user,
+                  };
+                }
+              },
+            );
+          },
+        },
+      },
+    }),
+    fetchExchange,
+  ],
 });
 
 const store = configureAppStore();

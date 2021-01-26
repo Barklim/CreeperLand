@@ -15,16 +15,14 @@
 
 ### Project setup
 
-In server delete dist folder and del migrations if have
-
-create db with dbname and pass like in mikro-orm.config.ts
+In server delete dist folder and del migrations if have. Create db with dbname and pass like in mikro-orm.config.ts
 
 ```
   dbName: "creeperland",
   password: "web13",
 ```
 
-create migration
+Create migration
 
 ```
 yarn create:migration 
