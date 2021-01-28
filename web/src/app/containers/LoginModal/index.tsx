@@ -50,6 +50,7 @@ export function LoginModal(props: Props) {
 
   const handleClose = () => handleCloseFunc();
 
+  // Simulate network request
   const sleep = ms => new Promise(r => setTimeout(r, ms));
 
   useEffect(() => {
@@ -87,13 +88,14 @@ export function LoginModal(props: Props) {
                   password: values.password,
                 },
               });
-              console.log('TEST');
-              console.log(response?.data?.login?.errors);
 
               if (response.data?.login.errors) {
                 setErrors(toErrorMap(response.data.login.errors));
               } else if (response.data?.login.user) {
                 // router.push("/");
+                // !!!
+                setShow(false);
+                dispatch(changeModal(false));
               }
             }}
             initialValues={{
