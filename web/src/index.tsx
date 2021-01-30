@@ -27,7 +27,7 @@ import { ThemeProvider } from 'styles/theme/ThemeProvider';
 
 import { Provider as ProviderUrql } from 'urql';
 import { createClient, dedupExchange, fetchExchange } from 'urql';
-import { cacheExchange, Cache, QueryInput } from '@urql/exchange-graphcache';
+import { cacheExchange } from '@urql/exchange-graphcache';
 import {
   MeDocument,
   LoginMutation,
@@ -35,6 +35,7 @@ import {
   RegisterMutation,
   LogoutMutation,
 } from 'generated/graphql';
+import { betterUpdateQuery } from './utils/betterUpdateQuery';
 
 // Initialize languages
 import './locales/i18n';
@@ -47,15 +48,6 @@ const openSansObserver = new FontFaceObserver('Inter', {});
 openSansObserver.load().then(() => {
   // document.body.classList.add('fontLoaded');
 });
-
-function betterUpdateQuery<Result, Query>(
-  cache: Cache,
-  qi: QueryInput,
-  result: any,
-  fn: (r: Result, q: Query) => Query,
-) {
-  return cache.updateQuery(qi, data => fn(result, data as any) as any);
-}
 
 const client = createClient({
   url: 'http://localhost:4000/graphql',

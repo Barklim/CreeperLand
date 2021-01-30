@@ -2,6 +2,7 @@ import { GithubRepoFormState } from 'app/containers/GithubRepoForm/types';
 import { ThemeState } from 'styles/theme/types';
 import { DonatPageState } from 'app/containers/DonatPage/types';
 import { LoginModalState } from 'app/containers/LoginModal/types';
+import { RegisterModalState } from 'app/containers/RegisterModal/types';
 // [IMPORT NEW CONTAINERSTATE ABOVE] < Needed for generating containers seamlessly
 
 /* 
@@ -15,5 +16,6 @@ export interface RootState {
   githubRepoForm?: GithubRepoFormState;
   donatPage?: DonatPageState;
   loginModal?: LoginModalState;
+  registerModal?: RegisterModalState;
   // [INSERT NEW REDUCER KEY ABOVE] < Needed for generating containers seamlessly
 }

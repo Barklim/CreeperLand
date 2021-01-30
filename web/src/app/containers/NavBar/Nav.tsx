@@ -5,7 +5,10 @@ import { ReactComponent as DiscIcon } from './assets/disc-icon.svg';
 import Button from 'react-bootstrap/Button';
 // import { LoginModal } from '../../components/LoginModal';
 import { LoginModal } from '../../containers/LoginModal';
+import { RegisterModal } from '../../containers/RegisterModal';
+// import { RegisterModal } from '../../components/RegisterModal';
 import { useMeQuery, useLogoutMutation } from 'generated/graphql';
+import { isServer } from 'utils/isServer';
 
 import { useDispatch } from 'react-redux';
 import { loginModalActions } from '../LoginModal/slice';
@@ -22,12 +25,12 @@ export function Nav() {
   const showModal = () => dispatch(changeModal(true));
 
   const [{ fetching: logoutFetching }, logout] = useLogoutMutation();
-  const [{ data, fetching }] = useMeQuery();
+  const [{ data, fetching }] = useMeQuery({
+    pause: isServer(),
+  });
 
   let body: any = null;
 
-  console.log('TEST');
-  console.log(data);
   // data is loading
   if (fetching) {
     // user not logged in
@@ -43,9 +46,6 @@ export function Nav() {
     body = (
       <div>
         {data.me.username}
-        <Button variant="outline-success" onClick={showModal}>
-          logout
-        </Button>
         <Button
           onClick={() => {
             logout();
@@ -80,6 +80,7 @@ export function Nav() {
       </Item>
       <Item>{body}</Item>
       <LoginModal />
+      <RegisterModal />
     </Wrapper>
   );
 }

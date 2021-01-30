@@ -21,6 +21,7 @@ export function HomePage() {
         {/* <Masthead />
         <Features /> */}
         {/* <LoginModal></LoginModal> */}
+        <div>Homepage</div>
       </div>
     </>
   );

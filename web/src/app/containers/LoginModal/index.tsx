@@ -5,8 +5,14 @@ import styled from 'styled-components/macro';
 
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { reducer, sliceKey, loginModalActions } from './slice';
+import {
+  reducer as reducerReg,
+  sliceKey as sliceKeyReg,
+  registerModalActions,
+} from '../RegisterModal/slice';
 import { selectLoginModal } from './selectors';
 import { loginModalSaga } from './saga';
+import { registerModalSaga } from '../RegisterModal/saga';
 
 import { useState } from 'react';
 import { Formik } from 'formik';
@@ -23,7 +29,9 @@ interface Props {}
 
 export function LoginModal(props: Props) {
   useInjectReducer({ key: sliceKey, reducer: reducer });
+  useInjectReducer({ key: sliceKeyReg, reducer: reducerReg });
   useInjectSaga({ key: sliceKey, saga: loginModalSaga });
+  useInjectSaga({ key: sliceKeyReg, saga: registerModalSaga });
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const loginModal = useSelector(selectLoginModal);
@@ -31,24 +39,27 @@ export function LoginModal(props: Props) {
   const dispatch = useDispatch();
 
   const { changeModal } = loginModalActions;
+  const changeModalReg = registerModalActions.changeModal;
 
   const [, login] = useLoginMutation();
 
   const schema = yup.object({
-    username: yup.string().required('Login is a required field'),
-    email: yup.string().required(),
+    usernameOrEmail: yup.string().required('Login is a required field'),
     password: yup.string(),
-    repPas: yup.string(),
   });
 
   const [show, setShow] = useState(loginModal.show);
 
-  const handleCloseFunc = function () {
+  const closeLoginModal = function () {
     setShow(false);
     dispatch(changeModal(false));
   };
-
-  const handleClose = () => handleCloseFunc();
+  const handleShowReg = function () {
+    setShow(false);
+    dispatch(changeModal(false));
+    dispatch(changeModalReg(true));
+  };
+  const handleClose = () => closeLoginModal();
 
   // Simulate network request
   const sleep = ms => new Promise(r => setTimeout(r, ms));
@@ -73,36 +84,19 @@ export function LoginModal(props: Props) {
           </Row>
           <Formik
             validationSchema={schema}
-            // onSubmit={console.log}
             onSubmit={async (values, { setErrors }) => {
               await sleep(700);
-              console.log(values);
-              const response = await login({
-                // username: values.username,
-                // password: values.password,
-
-                // options: values,
-
-                options: {
-                  username: values.username,
-                  password: values.password,
-                },
-              });
+              const response = await login(values);
 
               if (response.data?.login.errors) {
                 setErrors(toErrorMap(response.data.login.errors));
               } else if (response.data?.login.user) {
-                // router.push("/");
-                // !!!
-                setShow(false);
-                dispatch(changeModal(false));
+                handleClose();
               }
             }}
             initialValues={{
-              username: '',
-              email: '',
+              usernameOrEmail: '',
               password: '',
-              repPas: '',
             }}
           >
             {({
@@ -122,19 +116,21 @@ export function LoginModal(props: Props) {
                     md={{ span: 8, offset: 2 }}
                     controlId="validationFormik01"
                   >
-                    <Form.Label>Логин:</Form.Label>
+                    <Form.Label>Логин или Email:</Form.Label>
                     <Form.Control
                       type="text"
-                      name="username"
-                      value={values.username}
+                      name="usernameOrEmail"
+                      value={values.usernameOrEmail}
                       onChange={handleChange}
-                      placeholder="Ваш ник"
-                      isValid={touched.username && !errors.username}
-                      isInvalid={!!errors.username}
+                      placeholder="Ваш ник или почта"
+                      isValid={
+                        touched.usernameOrEmail && !errors.usernameOrEmail
+                      }
+                      isInvalid={!!errors.usernameOrEmail}
                     />
                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                     <Form.Control.Feedback type="invalid" tooltip>
-                      {errors.username}
+                      {errors.usernameOrEmail}
                     </Form.Control.Feedback>
                   </Form.Group>
                 </Form.Row>
@@ -143,24 +139,6 @@ export function LoginModal(props: Props) {
                     as={Col}
                     md={{ span: 8, offset: 2 }}
                     controlId="validationFormik02"
-                  >
-                    <Form.Label>E-mail:</Form.Label>
-                    <Form.Control
-                      type="email"
-                      name="email"
-                      value={values.email}
-                      onChange={handleChange}
-                      placeholder="Промокод"
-                      isValid={touched.email && !errors.email}
-                    />
-                    <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                  </Form.Group>
-                </Form.Row>
-                <Form.Row>
-                  <Form.Group
-                    as={Col}
-                    md={{ span: 8, offset: 2 }}
-                    controlId="validationFormik03"
                   >
                     <Form.Label>Пароль:</Form.Label>
                     <Form.Control
@@ -178,24 +156,6 @@ export function LoginModal(props: Props) {
                     </Form.Control.Feedback>
                   </Form.Group>
                 </Form.Row>
-                <Form.Row>
-                  <Form.Group
-                    as={Col}
-                    md={{ span: 8, offset: 2 }}
-                    controlId="validationFormik04"
-                  >
-                    <Form.Label>Повторите пароль:</Form.Label>
-                    <Form.Control
-                      type="password"
-                      name="repPas"
-                      value={values.repPas}
-                      onChange={handleChange}
-                      placeholder="Повторите пароль"
-                      isValid={touched.repPas && !errors.repPas}
-                    />
-                    <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                  </Form.Group>
-                </Form.Row>
                 <Form.Group>
                   <Row className="justify-content-md-center">
                     <Button
@@ -204,6 +164,11 @@ export function LoginModal(props: Props) {
                       disabled={isSubmitting}
                     >
                       {isSubmitting ? 'Загрузка…' : 'Войти'}
+                    </Button>
+                  </Row>
+                  <Row className="justify-content-md-center">
+                    <Button variant="light" onClick={handleShowReg}>
+                      Регистрация
                     </Button>
                   </Row>
                 </Form.Group>

@@ -16,7 +16,32 @@
     "title": "Quick Scaffolding",
     "description": "Automate the creation of components, features, routes, selectors and sagas - and their tests - right from the CLI! Avoid fighting the glue of your code and focus on your app!"
   },
-  "regModal": {
-    "btnText": "Зарегистрироваться"
+  "translations": {
+    "someThing": "default value",
+    "routingFeature": {
+      "title": "Industry-standard Routing",
+      "description": ""
+    },
+    "feedbackFeature": {
+      "title": "",
+      "description": ""
+    },
+    "scaffoldingFeature": {
+      "title": "",
+      "description": ""
+    },
+    "i18nFeature": {
+      "title": "",
+      "description": "",
+      "selectLanguage": "Select Language"
+    },
+    "regModal": {
+      "btnText": "Зарегистрироваться",
+      "btnOnLoad": "Загрузка…",
+      "headerLabel": "Регистрация",
+      "labelLogin": "Логин",
+      "labelPas": "Пароль",
+      "labelRepPas": "Повторите пароль"
+    }
   }
 }

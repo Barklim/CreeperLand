@@ -17,6 +17,44 @@
     "description": "Automatisieren Sie die Kreation von Komponenten, Containern, Routen, Selektoren und Sagas – und ihre Tests – direkt von dem Terminal!"
   },
   "regModal": {
-    "btnText": "Anmeldung"
+    "btnText": "Anmeldung",
+    "btnOnLoad": "Загрузка…"
+  },
+  "translations": {
+    "someThing": "default value",
+    "routingFeature": {
+      "title": "Industry-standard Routing",
+      "description": ""
+    },
+    "feedbackFeature": {
+      "title": "",
+      "description": ""
+    },
+    "scaffoldingFeature": {
+      "title": "",
+      "description": ""
+    },
+    "i18nFeature": {
+      "title": "",
+      "description": "",
+      "selectLanguage": "Select Language"
+    },
+    "regModal": {
+      "btnText1": "btnText abc",
+      "btnText": "Зарегистрироваться",
+      "btnOnLoad": "Загрузка…",
+      "btnText123": "Зарегистрироваться",
+      "btnText124": "Зарегистрироваться",
+      "headerLabel": "Registration",
+      "labelLogin": "Login",
+      "labelPas": "Password",
+      "labelRepPas": "Repeat password"
+    },
+    "translations": {
+      "regModal": {
+        "btnText": "Зарегистрироваться",
+        "btnOnLoad": "Загрузка…"
+      }
+    }
   }
 }

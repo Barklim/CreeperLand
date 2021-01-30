@@ -1,6 +1,9 @@
 import * as React from 'react';
+import { useEffect } from 'react';
 import { useState } from 'react';
 import styled from 'styled-components/macro';
+import { useTranslation } from 'react-i18next';
+import { messages } from './messages';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import Form from 'react-bootstrap/Form';
@@ -8,34 +11,81 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { useLoginMutation } from 'generated/graphql';
+import { useRegisterMutation } from 'generated/graphql';
 import { toErrorMap } from 'utils/toErrorMap';
+
+import { useSelector, useDispatch } from 'react-redux';
+import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
+import { reducer, sliceKey, registerModalActions } from './slice';
+import {
+  reducer as reducerLogin,
+  sliceKey as sliceKeyLogin,
+  loginModalActions,
+} from '../LoginModal/slice';
+import { selectRegisterModal } from './selectors';
+import { registerModalSaga } from './saga';
+import { loginModalSaga } from '../LoginModal/saga';
 
 interface Props {}
 
-export function LoginModal(props: Props) {
-  const [, login] = useLoginMutation();
+export function RegisterModal(props: Props) {
+  useInjectReducer({ key: sliceKey, reducer: reducer });
+  useInjectReducer({ key: sliceKeyLogin, reducer: reducerLogin });
+  useInjectSaga({ key: sliceKey, saga: registerModalSaga });
+  useInjectSaga({ key: sliceKeyLogin, saga: loginModalSaga });
+
+  const registerModal = useSelector(selectRegisterModal);
+  const dispatch = useDispatch();
+
+  const { changeModal } = registerModalActions;
+  const changeModalLogin = loginModalActions.changeModal;
+
+  const { t } = useTranslation();
+  const btnText = t(messages.btnText);
+  const btnOnLoad = t(messages.btnOnLoad);
+  const headerLabel = t(messages.headerLabel);
+  const labelLogin = t(messages.labelLogin);
+  const labelPas = t(messages.labelPas);
+  const labelRepPas = t(messages.labelRepPas);
+
+  const [, register] = useRegisterMutation();
 
   const schema = yup.object({
-    username: yup.string().required('Login is a required field'),
-    email: yup.string().required(),
+    username: yup.string(),
+    email: yup.string().email(),
     password: yup.string(),
-    repPas: yup.string(),
+    repPas: yup
+      .string()
+      .oneOf([yup.ref('password'), null], 'Passwords must match'),
   });
 
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(registerModal.show);
 
-  const handleClose = () => setShow(false);
-  // const handleShow = () => setShow(true);
+  const closeRegnModal = function () {
+    setShow(false);
+    dispatch(changeModal(false));
+  };
+  const handleShowLogin = function () {
+    setShow(false);
+    dispatch(changeModal(false));
+    dispatch(changeModalLogin(true));
+  };
+  const handleClose = () => closeRegnModal();
 
   const sleep = ms => new Promise(r => setTimeout(r, ms));
 
+  useEffect(() => {
+    registerModal.show ? setShow(true) : setShow(false);
+  }, [registerModal.show]);
+
   return (
     <Div>
+      {t('')}
+      {/*  {t(...messages.someThing)}  */}
       <Modal show={show} onHide={handleClose} animation={true} centered>
         <Row className="justify-content-md-center">
           <Col md={{ span: 3, offset: 4 }}>
-            <HeaderLabel>Авторизация</HeaderLabel>
+            <HeaderLabel>{headerLabel}</HeaderLabel>
           </Col>
           <Col md={{ span: 1, offset: 3 }}>
             <Button variant="link" onClick={handleClose}>
@@ -48,25 +98,18 @@ export function LoginModal(props: Props) {
           // onSubmit={console.log}
           onSubmit={async (values, { setErrors }) => {
             await sleep(700);
-            console.log(values);
-            const response = await login({
-              // username: values.username,
-              // password: values.password,
-
-              // options: values,
-
+            const response = await register({
               options: {
                 username: values.username,
+                email: values.email,
                 password: values.password,
               },
             });
-            console.log('TEST');
-            console.log(response?.data?.login?.errors);
 
-            if (response.data?.login.errors) {
-              setErrors(toErrorMap(response.data.login.errors));
-            } else if (response.data?.login.user) {
-              // router.push("/");
+            if (response.data?.register.errors) {
+              setErrors(toErrorMap(response.data.register.errors));
+            } else if (response.data?.register.user) {
+              handleClose();
             }
           }}
           initialValues={{
@@ -93,7 +136,7 @@ export function LoginModal(props: Props) {
                   md={{ span: 8, offset: 2 }}
                   controlId="validationFormik01"
                 >
-                  <Form.Label>Логин:</Form.Label>
+                  <Form.Label>{labelLogin}:</Form.Label>
                   <Form.Control
                     type="text"
                     name="username"
@@ -123,8 +166,12 @@ export function LoginModal(props: Props) {
                     onChange={handleChange}
                     placeholder="Промокод"
                     isValid={touched.email && !errors.email}
+                    isInvalid={!!errors.email}
                   />
                   <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                  <Form.Control.Feedback type="invalid" tooltip>
+                    {errors.email}
+                  </Form.Control.Feedback>
                 </Form.Group>
               </Form.Row>
               <Form.Row>
@@ -133,7 +180,7 @@ export function LoginModal(props: Props) {
                   md={{ span: 8, offset: 2 }}
                   controlId="validationFormik03"
                 >
-                  <Form.Label>Пароль:</Form.Label>
+                  <Form.Label>{labelPas}:</Form.Label>
                   <Form.Control
                     type="password"
                     name="password"
@@ -155,7 +202,7 @@ export function LoginModal(props: Props) {
                   md={{ span: 8, offset: 2 }}
                   controlId="validationFormik04"
                 >
-                  <Form.Label>Повторите пароль:</Form.Label>
+                  <Form.Label>{labelRepPas}:</Form.Label>
                   <Form.Control
                     type="password"
                     name="repPas"
@@ -163,8 +210,12 @@ export function LoginModal(props: Props) {
                     onChange={handleChange}
                     placeholder="Повторите пароль"
                     isValid={touched.repPas && !errors.repPas}
+                    isInvalid={!!errors.repPas}
                   />
                   <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                  <Form.Control.Feedback type="invalid" tooltip>
+                    {errors.repPas}
+                  </Form.Control.Feedback>
                 </Form.Group>
               </Form.Row>
               <Form.Group>
@@ -174,7 +225,12 @@ export function LoginModal(props: Props) {
                     variant="success"
                     disabled={isSubmitting}
                   >
-                    {isSubmitting ? 'Загрузка…' : 'Войти'}
+                    {isSubmitting ? btnOnLoad : btnText}
+                  </Button>
+                </Row>
+                <Row className="justify-content-md-center">
+                  <Button variant="light" onClick={handleShowLogin}>
+                    Авторизация
                   </Button>
                 </Row>
               </Form.Group>
