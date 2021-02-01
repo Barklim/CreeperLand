@@ -33,6 +33,11 @@ export function App() {
         <Route exact path={process.env.PUBLIC_URL + '/'} component={HomePage} />
         <Route
           exact
+          path={process.env.PUBLIC_URL + '/donat/:token'}
+          component={DonatPage}
+        />
+        <Route
+          exact
           path={process.env.PUBLIC_URL + '/donat'}
           component={DonatPage}
         />

@@ -3,6 +3,8 @@ import { ThemeState } from 'styles/theme/types';
 import { DonatPageState } from 'app/containers/DonatPage/types';
 import { LoginModalState } from 'app/containers/LoginModal/types';
 import { RegisterModalState } from 'app/containers/RegisterModal/types';
+import { ChangePasModalState } from 'app/containers/ChangePasModal/types';
+import { ForgotPasModalState } from 'app/containers/ForgotPasModal/types';
 // [IMPORT NEW CONTAINERSTATE ABOVE] < Needed for generating containers seamlessly
 
 /* 
@@ -17,5 +19,7 @@ export interface RootState {
   donatPage?: DonatPageState;
   loginModal?: LoginModalState;
   registerModal?: RegisterModalState;
+  changePasModal?: ChangePasModalState;
+  forgotPasModal?: ForgotPasModalState;
   // [INSERT NEW REDUCER KEY ABOVE] < Needed for generating containers seamlessly
 }

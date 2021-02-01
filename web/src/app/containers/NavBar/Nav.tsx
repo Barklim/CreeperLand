@@ -3,16 +3,15 @@ import styled from 'styled-components/macro';
 import { ReactComponent as VkIcon } from './assets/vk-icon.svg';
 import { ReactComponent as DiscIcon } from './assets/disc-icon.svg';
 import Button from 'react-bootstrap/Button';
-// import { LoginModal } from '../../components/LoginModal';
 import { LoginModal } from '../../containers/LoginModal';
 import { RegisterModal } from '../../containers/RegisterModal';
-// import { RegisterModal } from '../../components/RegisterModal';
+import { ChangePasModal } from '../../containers/ChangePasModal';
+import { ForgotPasModal } from '../../containers/ForgotPasModal';
 import { useMeQuery, useLogoutMutation } from 'generated/graphql';
 import { isServer } from 'utils/isServer';
 
 import { useDispatch } from 'react-redux';
 import { loginModalActions } from '../LoginModal/slice';
-// import { selectLoginModal } from '../LoginModal/selectors';
 
 export function Nav() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -81,6 +80,9 @@ export function Nav() {
       <Item>{body}</Item>
       <LoginModal />
       <RegisterModal />
+      <RegisterModal />
+      <ChangePasModal />
+      <ForgotPasModal />
     </Wrapper>
   );
 }

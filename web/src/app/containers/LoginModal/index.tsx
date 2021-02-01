@@ -5,15 +5,12 @@ import styled from 'styled-components/macro';
 
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { reducer, sliceKey, loginModalActions } from './slice';
-import {
-  reducer as reducerReg,
-  sliceKey as sliceKeyReg,
-  registerModalActions,
-} from '../RegisterModal/slice';
+import { registerModalActions } from '../RegisterModal/slice';
+import { forgotPasModalActions } from '../ForgotPasModal/slice';
 import { selectLoginModal } from './selectors';
 import { loginModalSaga } from './saga';
-import { registerModalSaga } from '../RegisterModal/saga';
 
+import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { Formik } from 'formik';
 import * as yup from 'yup';
@@ -29,9 +26,7 @@ interface Props {}
 
 export function LoginModal(props: Props) {
   useInjectReducer({ key: sliceKey, reducer: reducer });
-  useInjectReducer({ key: sliceKeyReg, reducer: reducerReg });
   useInjectSaga({ key: sliceKey, saga: loginModalSaga });
-  useInjectSaga({ key: sliceKeyReg, saga: registerModalSaga });
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const loginModal = useSelector(selectLoginModal);
@@ -40,6 +35,7 @@ export function LoginModal(props: Props) {
 
   const { changeModal } = loginModalActions;
   const changeModalReg = registerModalActions.changeModal;
+  const changeModalForgotPas = forgotPasModalActions.changeModal;
 
   const [, login] = useLoginMutation();
 
@@ -59,6 +55,11 @@ export function LoginModal(props: Props) {
     dispatch(changeModal(false));
     dispatch(changeModalReg(true));
   };
+  const handleShowForgotPas = function () {
+    setShow(false);
+    dispatch(changeModal(false));
+    dispatch(changeModalForgotPas(true));
+  };
   const handleClose = () => closeLoginModal();
 
   // Simulate network request
@@ -67,6 +68,14 @@ export function LoginModal(props: Props) {
   useEffect(() => {
     loginModal.show ? setShow(true) : setShow(false);
   }, [loginModal.show]);
+
+  // Define url param if it have
+  let token: any = useParams();
+  if (Object.keys(useParams()).length === 0) {
+    token = '';
+  } else {
+    token = token.token;
+  }
 
   return (
     <>
@@ -116,6 +125,8 @@ export function LoginModal(props: Props) {
                     md={{ span: 8, offset: 2 }}
                     controlId="validationFormik01"
                   >
+                    <br />
+                    <div>{token}</div>
                     <Form.Label>Логин или Email:</Form.Label>
                     <Form.Control
                       type="text"
@@ -169,6 +180,11 @@ export function LoginModal(props: Props) {
                   <Row className="justify-content-md-center">
                     <Button variant="light" onClick={handleShowReg}>
                       Регистрация
+                    </Button>
+                  </Row>
+                  <Row className="justify-content-md-center">
+                    <Button variant="light" onClick={handleShowForgotPas}>
+                      Забыли пароль?
                     </Button>
                   </Row>
                 </Form.Group>

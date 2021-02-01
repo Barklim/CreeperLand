@@ -17,28 +17,23 @@ import { toErrorMap } from 'utils/toErrorMap';
 import { useSelector, useDispatch } from 'react-redux';
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { reducer, sliceKey, registerModalActions } from './slice';
-import {
-  reducer as reducerLogin,
-  sliceKey as sliceKeyLogin,
-  loginModalActions,
-} from '../LoginModal/slice';
+import { loginModalActions } from '../LoginModal/slice';
+import { forgotPasModalActions } from '../ForgotPasModal/slice';
 import { selectRegisterModal } from './selectors';
 import { registerModalSaga } from './saga';
-import { loginModalSaga } from '../LoginModal/saga';
 
 interface Props {}
 
 export function RegisterModal(props: Props) {
   useInjectReducer({ key: sliceKey, reducer: reducer });
-  useInjectReducer({ key: sliceKeyLogin, reducer: reducerLogin });
   useInjectSaga({ key: sliceKey, saga: registerModalSaga });
-  useInjectSaga({ key: sliceKeyLogin, saga: loginModalSaga });
 
   const registerModal = useSelector(selectRegisterModal);
   const dispatch = useDispatch();
 
   const { changeModal } = registerModalActions;
   const changeModalLogin = loginModalActions.changeModal;
+  const changeModalForgotPas = forgotPasModalActions.changeModal;
 
   const { t } = useTranslation();
   const btnText = t(messages.btnText);
@@ -64,6 +59,11 @@ export function RegisterModal(props: Props) {
   const closeRegnModal = function () {
     setShow(false);
     dispatch(changeModal(false));
+  };
+  const handleShowForgotPas = function () {
+    setShow(false);
+    dispatch(changeModal(false));
+    dispatch(changeModalForgotPas(true));
   };
   const handleShowLogin = function () {
     setShow(false);
@@ -231,6 +231,11 @@ export function RegisterModal(props: Props) {
                 <Row className="justify-content-md-center">
                   <Button variant="light" onClick={handleShowLogin}>
                     Авторизация
+                  </Button>
+                </Row>
+                <Row className="justify-content-md-center">
+                  <Button variant="light" onClick={handleShowForgotPas}>
+                    Забыли пароль?
                   </Button>
                 </Row>
               </Form.Group>
