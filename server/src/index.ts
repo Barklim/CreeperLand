@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import { COOKIE_NAME, __prod__ } from "./constants";
+import { __prod__, COOKIE_NAME } from "./constants";
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
@@ -29,19 +29,17 @@ const main = async () => {
 
   const RedisStore = connectRedis(session);
   const redis = new Redis();
-
   app.use(
     cors({
       origin: "http://localhost:3000",
       credentials: true,
     })
   );
-
   app.use(
     session({
       name: COOKIE_NAME,
       store: new RedisStore({
-        client: redis as any,
+        client: redis,
         disableTouch: true,
       }),
       cookie: {
@@ -51,7 +49,7 @@ const main = async () => {
         secure: __prod__, // cookie only works in https
       },
       saveUninitialized: false,
-      secret: process.env.REDISSECRET!,
+      secret: "qowiueojwojfalksdjoqiwueo",
       resave: false,
     })
   );
