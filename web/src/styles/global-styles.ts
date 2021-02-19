@@ -1,5 +1,6 @@
 /* bootstrap */
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
+import './bootstrap.min.css';
 
 import { createGlobalStyle } from 'styled-components';
 import { StyleConstants } from './StyleConstants';

@@ -19,12 +19,15 @@ import { User } from "./entities/User";
 const main = async () => {
   const conn = await createConnection({
     type: "postgres",
-    // database: "creeperland2",
-    // username: "postgres",
-    // password: "web13",
+
+    // For local
+    database: "creeperland2",
+    username: "postgres",
+    password: "web13",
+
     url: process.env.DATABASE_URL,
     logging: true,
-    // synchronize: true,
+    // x synchronize: true,
     migrations: [path.join(__dirname, "./migrations/*")],
     entities: [Post, User],
   });

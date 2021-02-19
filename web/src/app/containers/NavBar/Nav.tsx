@@ -2,7 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components/macro';
 import { ReactComponent as VkIcon } from './assets/vk-icon.svg';
 import { ReactComponent as DiscIcon } from './assets/disc-icon.svg';
-import Button from 'react-bootstrap/Button';
+import { Button } from 'react-bootstrap';
 import { LoginModal } from '../../containers/LoginModal';
 import { RegisterModal } from '../../containers/RegisterModal';
 import { ChangePasModal } from '../../containers/ChangePasModal';

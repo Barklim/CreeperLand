@@ -6,11 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { messages } from './messages';
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import Form from 'react-bootstrap/Form';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
+import { Form, Col, Row, Button, Modal } from 'react-bootstrap';
 import { useRegisterMutation } from 'generated/graphql';
 import { toErrorMap } from 'utils/toErrorMap';
 

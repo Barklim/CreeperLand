@@ -51,6 +51,8 @@ openSansObserver.load().then(() => {
 
 const client = createClient({
   url: 'http://localhost:4000/graphql',
+  // url: process.env.NEXT_PUBLIC_API_URL as string,
+  // url: 'https://api.creeperland.xyz/graphql',
   fetchOptions: {
     credentials: 'include',
   },

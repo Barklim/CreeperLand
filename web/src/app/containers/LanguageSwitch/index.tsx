@@ -26,13 +26,13 @@ export function LanguageSwitch() {
           isSelected={i18n.language === 'en'}
         />
         <Radio
-          id="tr"
-          label="Deutsch"
+          id="ru"
+          label="Russian"
           className="radio"
           name="language"
           onChange={handleLanguageChange}
-          value="de"
-          isSelected={i18n.language === 'de'}
+          value="ru"
+          isSelected={i18n.language === 'ru'}
         />
       </Languages>
     </Wrapper>

@@ -14,11 +14,7 @@ import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import Form from 'react-bootstrap/Form';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
+import { Form, Col, Row, Button, Modal } from 'react-bootstrap';
 import { useLoginMutation } from 'generated/graphql';
 import { toErrorMap } from 'utils/toErrorMap';
 

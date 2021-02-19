@@ -28,6 +28,7 @@ In server delete dist folder and del migrations if have. Create db with dbname a
 ```
   dbName: "creeperland",
   password: "web13",
+  username: "postgres",
 ```
 
 Create migration

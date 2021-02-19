@@ -1,5 +1,8 @@
+import { PageWrapper } from 'app/components/PageWrapper';
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
+import { LanguageSwitch } from '../LanguageSwitch';
+import { ThemeSwitch } from '../ThemeSwitch';
 // import { NavBar } from '../NavBar';
 // import { Masthead } from './Masthead';
 // import { Features } from './Features';
@@ -22,6 +25,10 @@ export function HomePage() {
         <Features /> */}
         {/* <LoginModal></LoginModal> */}
         <div>Homepage</div>
+        <PageWrapper>
+          <ThemeSwitch />
+          <LanguageSwitch />
+        </PageWrapper>
       </div>
     </>
   );
