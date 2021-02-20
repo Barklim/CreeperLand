@@ -92,6 +92,15 @@ Since as a result in locales/en an extra top sublevel translations is added to t
   }
 ```
 
+## Deploy
+
+Frontend & Backend
+
+```
+vercel --prod
+deploy.sh file
+```
+
 ## Bootstraped
 
 - [cra-template](https://github.com/react-boilerplate/react-boilerplate-cra-template)

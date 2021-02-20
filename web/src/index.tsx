@@ -50,9 +50,7 @@ openSansObserver.load().then(() => {
 });
 
 const client = createClient({
-  url: 'http://localhost:4000/graphql',
-  // url: process.env.NEXT_PUBLIC_API_URL as string,
-  // url: 'https://api.creeperland.xyz/graphql',
+  url: process.env.REACT_APP_PUBLIC_API_URL as string,
   fetchOptions: {
     credentials: 'include',
   },
@@ -118,10 +116,6 @@ ReactDOM.render(
         <HelmetProvider>
           <React.StrictMode>
             <App />
-            <div>process.env</div>
-            <div>{process.env.NODE_ENV}</div>
-            <div>%NEXT_PUBLIC_API_URL%</div>
-            <div>123</div>
           </React.StrictMode>
         </HelmetProvider>
       </ThemeProvider>
