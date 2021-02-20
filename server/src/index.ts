@@ -16,24 +16,67 @@ import path from "path";
 import { Post } from "./entities/Post";
 import { User } from "./entities/User";
 
+import argon2 from "argon2";
+import { Database, Resource } from "@admin-bro/typeorm";
+const AdminBro = require("admin-bro");
+const AdminBroExpressjs = require("@admin-bro/express");
+
+AdminBro.registerAdapter({ Database, Resource });
+
 const main = async () => {
   const conn = await createConnection({
     type: "postgres",
 
-    // For local
     database: "creeperland2",
     username: "postgres",
     password: "web13",
+    // For local
+    // url: process.env.DATABASE_URL,
 
-    url: process.env.DATABASE_URL,
     logging: true,
-    // x synchronize: true,
     migrations: [path.join(__dirname, "./migrations/*")],
     entities: [Post, User],
   });
   await conn.runMigrations();
 
   const app = express();
+
+  (async () => {
+    const contentNavigation = {
+      name: "Comments system",
+      icon: "Accessibility",
+    };
+    const adminBro = new AdminBro({
+      databases: [conn],
+      resources: [
+        { resource: User, options: { parent: { name: "Users" } } },
+        // { resource: User, options: { parent: { name: "Cases to Open" } } },
+        { resource: Post, options: { navigation: contentNavigation } },
+      ],
+      rootPath: "/admin",
+    });
+
+    // Build and use a router which will handle all AdminBro routes
+    const router = AdminBroExpressjs.buildAuthenticatedRouter(adminBro, {
+      authenticate: async (email: string, password: string) => {
+        const user = await User.findOne({ email });
+
+        if (user) {
+          const valid = await argon2.verify(user.password, password);
+
+          if (valid) {
+            if (process.env.ADMIN_MAIL === email) {
+              return user;
+            }
+          }
+        }
+        return false;
+      },
+      cookiePassword: "some-secret-password-used-to-secure-cookie",
+    });
+
+    app.use(adminBro.options.rootPath, router);
+  })();
 
   const RedisStore = connectRedis(session);
   const redis = new Redis(process.env.REDIS_URL);

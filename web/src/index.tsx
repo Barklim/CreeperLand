@@ -118,6 +118,10 @@ ReactDOM.render(
         <HelmetProvider>
           <React.StrictMode>
             <App />
+            <div>process.env</div>
+            <div>{process.env.NODE_ENV}</div>
+            <div>%NEXT_PUBLIC_API_URL%</div>
+            <div>123</div>
           </React.StrictMode>
         </HelmetProvider>
       </ThemeProvider>
