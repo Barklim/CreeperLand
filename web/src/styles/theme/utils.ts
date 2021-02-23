@@ -1,17 +1,19 @@
-import { ThemeKeyType } from './types';
+export const themeSome = 'themeSome';
 
-/* istanbul ignore next line */
-export const isSystemDark = window?.matchMedia
-  ? window.matchMedia('(prefers-color-scheme: dark)')?.matches
-  : undefined;
+// import { ThemeKeyType } from './types';
 
-export function saveTheme(theme: ThemeKeyType) {
-  window.localStorage && localStorage.setItem('selectedTheme', theme);
-}
+// /* istanbul ignore next line */
+// export const isSystemDark = window?.matchMedia
+//   ? window.matchMedia('(prefers-color-scheme: dark)')?.matches
+//   : undefined;
 
-/* istanbul ignore next line */
-export function getThemeFromStorage(): ThemeKeyType | null {
-  return window.localStorage
-    ? (localStorage.getItem('selectedTheme') as ThemeKeyType) || null
-    : null;
-}
+// export function saveTheme(theme: ThemeKeyType) {
+//   window.localStorage && localStorage.setItem('selectedTheme', theme);
+// }
+
+// /* istanbul ignore next line */
+// export function getThemeFromStorage(): ThemeKeyType | null {
+//   return window.localStorage
+//     ? (localStorage.getItem('selectedTheme') as ThemeKeyType) || null
+//     : null;
+// }

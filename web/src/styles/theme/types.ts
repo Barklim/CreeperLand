@@ -1,7 +1,9 @@
-import { themes } from './themes';
+export const themeSome = 'themeSome';
 
-export type ThemeKeyType = keyof typeof themes | 'system';
+// import { themes } from './themes';
 
-export interface ThemeState {
-  selected: ThemeKeyType;
-}
+// export type ThemeKeyType = keyof typeof themes | 'system';
+
+// export interface ThemeState {
+//   selected: ThemeKeyType;
+// }

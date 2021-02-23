@@ -72,7 +72,7 @@ const main = async () => {
         }
         return false;
       },
-      cookiePassword: "some-secret-password-used-to-secure-cookie",
+      cookiePassword: process.env.SESSION_SECRET,
     });
 
     app.use(adminBro.options.rootPath, router);

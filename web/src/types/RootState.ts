@@ -1,5 +1,5 @@
-import { GithubRepoFormState } from 'app/containers/GithubRepoForm/types';
-import { ThemeState } from 'styles/theme/types';
+// import { GithubRepoFormState } from 'app/containers/GithubRepoForm/types';
+// import { ThemeState } from 'styles/theme/types';
 import { DonatPageState } from 'app/containers/DonatPage/types';
 import { LoginModalState } from 'app/containers/LoginModal/types';
 import { RegisterModalState } from 'app/containers/RegisterModal/types';
@@ -14,8 +14,8 @@ import { ForgotPasModalState } from 'app/containers/ForgotPasModal/types';
   So, not available always
 */
 export interface RootState {
-  theme?: ThemeState;
-  githubRepoForm?: GithubRepoFormState;
+  // theme?: ThemeState;
+  // githubRepoForm?: GithubRepoFormState;
   donatPage?: DonatPageState;
   loginModal?: LoginModalState;
   registerModal?: RegisterModalState;

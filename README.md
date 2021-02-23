@@ -98,7 +98,7 @@ Frontend & Backend
 
 ```
 vercel --prod
-deploy.sh file
+sh deploy.sh
 ```
 
 ## Bootstraped
@@ -116,4 +116,5 @@ deploy.sh file
 
 Team:
 
+- [Github](https://github.com/Allohamora/creeper-land-react) - Frontend developer (UI)
 - [Github](https://barklim.github.io/) - Full-stack developer

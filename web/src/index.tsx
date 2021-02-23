@@ -23,7 +23,7 @@ import { HelmetProvider } from 'react-helmet-async';
 
 import { configureAppStore } from 'store/configureStore';
 
-import { ThemeProvider } from 'styles/theme/ThemeProvider';
+// import { ThemeProvider } from 'styles/theme/ThemeProvider';
 
 import { Provider as ProviderUrql } from 'urql';
 import { createClient, dedupExchange, fetchExchange } from 'urql';
@@ -112,13 +112,11 @@ const MOUNT_NODE = document.getElementById('root') as HTMLElement;
 ReactDOM.render(
   <Provider store={store}>
     <ProviderUrql value={client}>
-      <ThemeProvider>
-        <HelmetProvider>
-          <React.StrictMode>
-            <App />
-          </React.StrictMode>
-        </HelmetProvider>
-      </ThemeProvider>
+      <HelmetProvider>
+        <React.StrictMode>
+          <App />
+        </React.StrictMode>
+      </HelmetProvider>
     </ProviderUrql>
   </Provider>,
   MOUNT_NODE,

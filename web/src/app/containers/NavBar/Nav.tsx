@@ -93,7 +93,6 @@ const Wrapper = styled.nav`
 `;
 
 const Item = styled.a`
-  color: ${p => p.theme.primary};
   cursor: pointer;
   text-decoration: none;
   display: flex;

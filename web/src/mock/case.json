@@ -1,0 +1,35 @@
+{
+  "title": "Кейс #1",
+  "icon": "case_3",
+  "stock": 5,
+  "items": [
+    {
+      "id": "1",
+      "title": "Creeper",
+      "icon": "creeper",
+      "value": "Шанс 25%",
+      "lines": "lime"
+    },
+    {
+      "id": "2",
+      "title": "Ender",
+      "icon": "enderman",
+      "value": "Шанс 25%",
+      "lines": "purple"
+    },
+    {
+      "id": "3",
+      "title": "Blaze",
+      "icon": "blaze",
+      "value": "Шанс 25%",
+      "lines": "red"
+    },
+    {
+      "id": "4",
+      "title": "Wither",
+      "icon": "wither",
+      "value":"Шанс 25%",
+      "lines": "blue"
+    }
+  ]
+}

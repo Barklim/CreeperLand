@@ -1,69 +1,71 @@
-import * as React from 'react';
-import { FormLabel } from 'app/components/FormLabel';
-import { Radio } from 'app/components/Radio';
-import styled from 'styled-components/macro';
-import { changeTheme, selectThemeKey } from 'styles/theme/slice';
-import { useDispatch, useSelector } from 'react-redux';
-import { saveTheme } from 'styles/theme/utils';
-import { ThemeKeyType } from 'styles/theme/types';
+export const ThemeSwitch = 'themeSome';
 
-export function ThemeSwitch() {
-  const theme = useSelector(selectThemeKey);
-  const dispatch = useDispatch();
+// import * as React from 'react';
+// import { FormLabel } from 'app/components/FormLabel';
+// import { Radio } from 'app/components/Radio';
+// import styled from 'styled-components/macro';
+// import { changeTheme, selectThemeKey } from 'styles/theme/slice';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { saveTheme } from 'styles/theme/utils';
+// import { ThemeKeyType } from 'styles/theme/types';
 
-  const handleThemeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value as ThemeKeyType;
-    saveTheme(value);
-    dispatch(changeTheme(value));
-  };
+// export function ThemeSwitch() {
+//   const theme = useSelector(selectThemeKey);
+//   const dispatch = useDispatch();
 
-  return (
-    <Wrapper>
-      <FormLabel>Select Theme</FormLabel>
-      <Themes>
-        <Radio
-          id="system"
-          label="System theme"
-          className="radio"
-          name="theme"
-          onChange={handleThemeChange}
-          value="system"
-          isSelected={theme === 'system'}
-        />
-        <Radio
-          id="light"
-          label="Light"
-          className="radio"
-          name="theme"
-          onChange={handleThemeChange}
-          value="light"
-          isSelected={theme === 'light'}
-        />
-        <Radio
-          id="dark"
-          label="Dark"
-          className="radio"
-          name="theme"
-          onChange={handleThemeChange}
-          value="dark"
-          isSelected={theme === 'dark'}
-        />
-      </Themes>
-    </Wrapper>
-  );
-}
+//   const handleThemeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+//     const value = event.target.value as ThemeKeyType;
+//     saveTheme(value);
+//     dispatch(changeTheme(value));
+//   };
 
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  ${FormLabel} {
-    margin-bottom: 0.625rem;
-  }
-`;
-const Themes = styled.div`
-  display: flex;
+//   return (
+//     <Wrapper>
+//       <FormLabel>Select Theme</FormLabel>
+//       <Themes>
+//         <Radio
+//           id="system"
+//           label="System theme"
+//           className="radio"
+//           name="theme"
+//           onChange={handleThemeChange}
+//           value="system"
+//           isSelected={theme === 'system'}
+//         />
+//         <Radio
+//           id="light"
+//           label="Light"
+//           className="radio"
+//           name="theme"
+//           onChange={handleThemeChange}
+//           value="light"
+//           isSelected={theme === 'light'}
+//         />
+//         <Radio
+//           id="dark"
+//           label="Dark"
+//           className="radio"
+//           name="theme"
+//           onChange={handleThemeChange}
+//           value="dark"
+//           isSelected={theme === 'dark'}
+//         />
+//       </Themes>
+//     </Wrapper>
+//   );
+// }
 
-  .radio {
-    margin-right: 1.5rem;
-  }
-`;
+// const Wrapper = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   ${FormLabel} {
+//     margin-bottom: 0.625rem;
+//   }
+// `;
+// const Themes = styled.div`
+//   display: flex;
+
+//   .radio {
+//     margin-right: 1.5rem;
+//   }
+// `;

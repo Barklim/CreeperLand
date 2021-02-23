@@ -62,7 +62,7 @@ export function LoginModal(props: Props) {
   const sleep = ms => new Promise(r => setTimeout(r, ms));
 
   useEffect(() => {
-    loginModal.show ? setShow(true) : setShow(false);
+    loginModal.show ? setShow(true) : setShow(true);
   }, [loginModal.show]);
 
   // Define url param if it have

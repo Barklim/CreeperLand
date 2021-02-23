@@ -18,7 +18,7 @@ const Wrapper = styled.div`
 const Title = styled.div`
   /* font-size: 1.25rem; */
   font-size: 16px;
-  color: ${p => p.theme.text};
+
   font-weight: 500;
   margin-right: 1rem;
 `;
@@ -26,6 +26,6 @@ const Title = styled.div`
 const Description = styled.div`
   /* font-size: 0.875rem; */
   font-size: 14px;
-  color: ${p => p.theme.textSecondary};
+
   font-weight: normal;
 `;
